@@ -1,6 +1,6 @@
 {
   "name": "ligatures",
-  "version": "0.0.0-0",
+  "version": "0.0.0",
   "description": "Get a string array of ligatures for a given font",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
