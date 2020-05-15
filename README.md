@@ -1,10 +1,14 @@
 # ligatures
 
-Uses [fontkit] to get an array of ligatures for a font. Useful for icon fonts.
+Uses [fontkit] to get an array of ligatures for a font. Useful for icon fonts. [Demo Site].
 
 ```
 npm i ligatures
 ```
+
+<div align="center">
+  <img height="300" src="./demo.png">
+</div>
 
 ## Example
 
@@ -36,4 +40,5 @@ If you're creating design systems, you may have a component specifically for ren
 
 You may want to create a TypeScript interface of the union of all possible ligatures for your font, providing intelliense and a generally superior developer experience to the consumers of your design system.
 
+[demo site]: https://petermikitsh.github.io/ligatures
 [fontkit]: https://github.com/foliojs/fontkit
