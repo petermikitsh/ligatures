@@ -1,6 +1,6 @@
-import fontkit, { Font } from "fontkit";
+import * as fontkit from "fontkit";
 
-const getLigatures = (font: Font): string[] => {
+const getLigatures = (font: fontkit.Font): string[] => {
   const {
     coverage: { rangeRecords },
     ligatureSets,
@@ -36,7 +36,7 @@ export const getLigaturesFromPath = (
   fontFilePath: string
 ): Promise<string[]> => {
   return new Promise((resolve, reject) => {
-    fontkit.open(fontFilePath, null, (err, font) => {
+    fontkit.default.open(fontFilePath, null, (err, font) => {
       if (err) {
         reject(err);
       }
@@ -50,6 +50,6 @@ export const getLigaturesFromPath = (
 };
 
 export const getLigaturesFromBuffer = (fontFileBuffer: Buffer): string[] => {
-  const font = fontkit.create(fontFileBuffer);
+  const font = fontkit.default.create(fontFileBuffer);
   return getLigatures(font);
 };
