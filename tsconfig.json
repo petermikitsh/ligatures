@@ -3,6 +3,7 @@
     "declaration": true,
     "outDir": "dist",
     "module": "CommonJS",
+    "moduleResolution": "node",
     "lib": ["dom", "ES2017"],
     "target": "es5",
     "importHelpers": true,
