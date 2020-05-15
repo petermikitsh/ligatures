@@ -1,12 +1,13 @@
 {
   "name": "ligatures",
   "version": "0.0.0-0",
-  "description": "",
+  "description": "Get a string array of ligatures for a given font",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "clean": "rimraf"
+    "clean": "rimraf",
+    "start": "yarn run build -- --watch --preserveWatchOutput"
   },
   "author": "Peter Mikitsh",
   "license": "MIT",
