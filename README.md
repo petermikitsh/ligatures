@@ -9,10 +9,13 @@ npm i ligatures
 ## Example
 
 ```js
-const ligatures = require('ligatures');
-console.log(getLigatures('matIconFont.woff').join(", "));
-// [3d_rotation, 360, desktop_access_disabled, domain_verification, ...]
-});
+const { getLigaturesFromPath } = require("ligatures");
+
+(async () => {
+  const ligatures = await getLigaturesFromPath("matIconFont.woff");
+  console.log(ligatures);
+  // [3d_rotation, 360, desktop_access_disabled, domain_verification, ...]
+})();
 ```
 
 ## API
