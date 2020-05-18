@@ -1,24 +1,39 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import { CssBaseline, Typography } from "@material-ui/core";
+import { CssBaseline, Typography, Card, CardContent } from "@material-ui/core";
 import { DropzoneArea } from "material-ui-dropzone";
 import { getLigaturesFromBuffer } from "../dist";
 import styled from "styled-components";
 import GithubCorner from "react-github-corner";
 
-const StyledFont = styled.div`
-  @font-face {
-    font-family: UploadedFont;
-    src: url(${(props) => props.font});
+const StyledRoot = styled.div`
+  max-width: 1000px;
+  margin: 0 auto;
+  text-rendering: optimizeLegibility;
+  [class^="DropzoneArea-dropZone"] {
+    min-height: 0;
   }
+`;
+
+const StyledFont = styled.div`
+  ${(props) =>
+    props.font
+      ? `
+    @font-face {
+      font-family: UploadedFont;
+      src: url(${props.font});
+    }
+  `
+      : ""}
 
   font-family: UploadedFont;
   display: flex;
   flex-wrap: wrap;
+  font-feature-settings: "liga", "dlig", "calt", "ordn", "rlig";
 `;
 
 const StyledPreview = styled.div`
-  width: 100px;
+  width: 126px;
   background-color: #ddd;
   display: flex;
   flex-direction: column;
@@ -28,11 +43,22 @@ const StyledPreview = styled.div`
   padding: 8px;
 `;
 
+const StyledLigatureLetter = styled.span`
+  display: inline-flex;
+  justify-content: center;
+  margin: 0 2px 2px 0;
+  background: #ccc;
+  font-family: monospace;
+  font-size: 12px;
+  width: 11px;
+`;
+
 const App = () => {
   const [fontBase64, setFontBase64] = useState(null);
   const [ligatures, setLigatures] = useState([]);
+
   return (
-    <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+    <StyledRoot>
       <CssBaseline />
       <GithubCorner href="https://github.com/petermikitsh/ligatures" />
       <Typography
@@ -58,7 +84,10 @@ const App = () => {
           readerArrayBuffer.readAsArrayBuffer(file);
           readerArrayBuffer.onload = () => {
             const fontBuffer = Buffer.from(readerArrayBuffer.result);
-            setLigatures(getLigaturesFromBuffer(fontBuffer).sort());
+            const ligaturesFromBuffer = getLigaturesFromBuffer(
+              fontBuffer
+            ).sort();
+            setLigatures(ligaturesFromBuffer);
           };
         }}
         dropzoneText={
@@ -72,6 +101,11 @@ const App = () => {
         }
         showPreviewsInDropzone={false}
       />
+      {Boolean(fontBase64 && !ligatures.length) && (
+        <Card style={{ marginTop: "16px" }}>
+          <CardContent>No ligatures detected.</CardContent>
+        </Card>
+      )}
       {fontBase64 && (
         <StyledFont font={fontBase64}>
           {ligatures.map((ligature) => (
@@ -88,13 +122,17 @@ const App = () => {
                   textAlign: "center",
                 }}
               >
-                {ligature}
+                {ligature.split("").map((character, index) => (
+                  <StyledLigatureLetter key={character + index}>
+                    {character}
+                  </StyledLigatureLetter>
+                ))}
               </Typography>
             </StyledPreview>
           ))}
         </StyledFont>
       )}
-    </div>
+    </StyledRoot>
   );
 };
 

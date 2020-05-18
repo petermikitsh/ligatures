@@ -8,6 +8,7 @@
     "target": "es5",
     "importHelpers": true,
     "sourceMap": true,
+    "inlineSources": true,
     "esModuleInterop": true
   },
 
