@@ -13,10 +13,6 @@ module.exports = function (env) {
     module: {
       rules: [
         {
-          test: /node_modules\/(pdfkit|fontkit|png-js|linebreak|brotli)\//,
-          loader: "transform-loader?brfs",
-        },
-        {
           test: /\.jsx?$/,
           loader: "babel-loader",
           include: path.resolve(__dirname),
@@ -36,6 +32,11 @@ module.exports = function (env) {
     ],
     output: {
       path: path.resolve(__dirname, "site"),
+    },
+    resolve: {
+      alias: {
+        fs: path.resolve(__dirname, "fsShim.js"),
+      },
     },
   };
 };
